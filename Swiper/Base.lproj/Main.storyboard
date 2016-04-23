@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fBR-6w-IMN">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Swiper_beta" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAZ-VK-V4a">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pAZ-VK-V4a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="3Bn-PJ-VLo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pAZ-VK-V4a" secondAttribute="trailing" constant="-20" id="Bgu-bp-qc5"/>
+                            <constraint firstItem="pAZ-VK-V4a" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="IWF-Lo-hPr"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pAZ-VK-V4a" secondAttribute="bottom" id="JXl-fE-qkq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="NLS-Kq-ZwQ">
+                        <barButtonItem key="leftBarButtonItem" title="Photos" id="yO8-hF-Di5">
+                            <connections>
+                                <action selector="photoFromLibrary:" destination="BYZ-38-t0r" id="vmm-nw-SdN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="9g6-0F-2Lo">
+                            <connections>
+                                <action selector="goToSettings:" destination="BYZ-38-t0r" id="YbN-zO-eSO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="scrollView" destination="pAZ-VK-V4a" id="6Ze-0e-Str"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1325" y="760"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LdL-7j-OVx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fBR-6w-IMN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nc1-SV-eOu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="AZh-fJ-qU7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hdd-9x-qVU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="287" y="1089"/>
+        </scene>
+    </scenes>
+</document>
