@@ -83,7 +83,18 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         setupGestureRecognizer()
         
     }
-
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+        if error == nil {
+            let ac = UIAlertController(title: "Swiper No Swiping!", message: "Your face has been saved.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(ac, animated: true, completion: nil)
+        }
+    }
     
     // Replaces old myImageView with new chosen picture or picture from camera
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -92,8 +103,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         if (picker.sourceType == UIImagePickerControllerSourceType.Camera) {
             let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             //myImageView.contentMode = .ScaleAspectFit
-            myImageView.image = UIImage(CGImage: chosenImage.CGImage!, scale: chosenImage.scale, orientation: .LeftMirrored)
-            UIImageWriteToSavedPhotosAlbum(myImageView.image!, self, nil, nil)
+            myImageView.image = UIImage(CGImage: chosenImage.CGImage!, scale: 1.0, orientation: .LeftMirrored)
+            var flippedToSaveImage = myImageView.image
+            flippedToSaveImage = fixOrientation(flippedToSaveImage!)
+            UIImageWriteToSavedPhotosAlbum(flippedToSaveImage!, self, #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
             dismissViewControllerAnimated(true, completion: nil)
 
             setZoomScale()
@@ -106,6 +119,23 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             setZoomScale()
         }
     }
+    
+    func fixOrientation(img:UIImage) -> UIImage {
+        
+        if (img.imageOrientation == UIImageOrientation.Up) {
+            return img;
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(img.size, false, img.scale);
+        let rect = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        img.drawInRect(rect)
+        
+        let normalizedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return normalizedImage;
+        
+    }
+    
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -131,6 +161,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     override func viewWillLayoutSubviews() {
         setZoomScale()
     }
+    
+    
+
     
     // Allows scrollView to adjust picture when the device is rotated
     func scrollViewDidZoom(scrollView: UIScrollView) {
